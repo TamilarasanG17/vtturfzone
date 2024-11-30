@@ -142,7 +142,7 @@ document.getElementById('turf-booking-form').addEventListener('submit', async fu
 
     if (result.isConfirmed) {
         try {
-            const response = await fetch(`/api/turf/${turfId}/book`, {
+            const response = await fetch(`https://vtturfzone.onrender.com/api/turf/${turfId}/book`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, date, timeSlot, playerCount: players, sport, price })
@@ -239,7 +239,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (turfId) {
         try {
-            const response = await fetch(`api/turf/${turfId}`);
+            const response = await fetch(`https://vtturfzone.onrender.com/api/turf/${turfId}`);
             const turf = await response.json();
             document.getElementById('turfImage').src = turf.image;
             document.getElementById('turfImage').alt = turf.name;
