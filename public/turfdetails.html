@@ -486,7 +486,7 @@ function submitReview() {
         return;
     }
 
-    fetch(`/api/turf/${turfId}/review`, {
+    fetch(`https://vtturfzone.onrender.com/api/turf/${turfId}/review`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -517,7 +517,7 @@ function deleteReview(reviewBox, reviewId) {
         return;
     }
     
-        fetch(`/api/reviews/${turfId}/${reviewId}`, {
+        fetch(`https://vtturfzone.onrender.com/api/reviews/${turfId}/${reviewId}`, {
             method: 'DELETE',
         })
         .then(response => {
@@ -544,7 +544,7 @@ function deleteReview(reviewBox, reviewId) {
         return;
     }
 
-    fetch(`/api/turf/${turfId}`)
+    fetch(`https://vtturfzone.onrender.com/api/turf/${turfId}`)
         .then(response => response.json())
         .then(turf => {
             const reviewList = document.getElementById('reviewList');
@@ -601,7 +601,7 @@ function deleteReview(reviewBox, reviewId) {
         const turfId = urlParams.get("id");
          if (turfId) {
             try {
-                const response = await fetch(`api/turf/${turfId}`);
+                const response = await fetch(`https://vtturfzone.onrender.com/api/turf/${turfId}`);
                 if (!response.ok) {
                     throw new Error("Failed to fetch turf details");
                 }
