@@ -259,7 +259,7 @@
 
         async function fetchTurfsByCity(city) {
             try {
-                const response = await fetch(`http://localhost:3000/api/turfs?city=${encodeURIComponent(city)}`);
+                const response = await fetch(`https://vtturfzone.onrender.com/api/turfs?city=${encodeURIComponent(city)}`);
                 const turfs = await response.json();
 
                 const turfContainer = document.getElementById('turfContainer');
