@@ -100,8 +100,27 @@ app.post('/api/login', async (req, res) => {
     if (!user) return res.json({ success: false, message: 'User does not exist' });
     const match = await bcrypt.compare(password, user.password);
     if (!match) return res.json({ success: false, message: 'Incorrect password' });
+    const otp = otpGenerator.generate(6, { digits: true, upperCaseAlphabets: false, specialChars: false });
+    user.otp = otp;
+    user.otpExpiry = Date.now() + 10 * 60000;
+    await user.save();
 
-    res.json({ success: true });
+    let transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.GMAIL_USER,
+            pass: process.env.GMAIL_PASS
+        }
+    });
+
+    let info = await transporter.sendMail({
+        from: '"Turf Booking" <no-reply@example.com>',
+        to: email,
+        subject: 'OTP for Login',
+        text: `Your OTP for login is: ${otp}`
+    });
+
+    res.json({ success: true, message: 'OTP sent to email' });
 });
 
 app.post('/api/forgot-password', async (req, res) => { 
